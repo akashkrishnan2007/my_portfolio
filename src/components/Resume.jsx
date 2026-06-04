@@ -57,7 +57,7 @@ export default function Resume() {
 
                 {/* Download Button */}
                 <a
-                  href={`${import.meta.env.BASE_URL}resume.pdf`}
+                  href={`${import.meta.env.BASE_URL}Akash_K_Resume.pdf`}
                   download="Akash_K_Resume.pdf"
                   className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-purple-600 to-cyan-600 rounded-xl font-semibold shadow-lg hover:shadow-purple-500/40 transition-all hover:scale-105"
                 >

@@ -22,18 +22,20 @@ export default function Contact(){
     setStatus({ type: '', message: '' })
 
     try {
-      const response = await fetch('https://formspree.io/f/xanyqbvg', {
+      const response = await fetch('https://formspree.io/f/akash.k2024cse@sece.ac.in', {
         method: 'POST',
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          message: formData.message,
-          _subject: `Portfolio Contact: Message from ${formData.name}`
+          message: formData.message
         })
       })
+
+      const data = await response.json()
 
       if (response.ok) {
         setStatus({
@@ -42,14 +44,17 @@ export default function Contact(){
         })
         setFormData({ name: '', email: '', message: '' })
       } else {
-        throw new Error('Failed to send')
+        throw new Error(data?.error || 'Failed')
       }
     } catch (error) {
+      // Fallback: open mailto
+      const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`)
+      const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)
+      window.open(`mailto:akash.k2024cse@sece.ac.in?subject=${subject}&body=${body}`, '_blank')
       setStatus({
-        type: 'error',
-        message: '❌ Failed to send. Please email me directly at akash.k2024cse@sece.ac.in'
+        type: 'success',
+        message: '📧 Your email client has opened with the message. Please send it from there.'
       })
-      console.error('Form Error:', error)
     } finally {
       setIsLoading(false)
     }
